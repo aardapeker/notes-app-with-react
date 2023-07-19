@@ -5,7 +5,7 @@ import './Editor.css'
 
 const API_KEY = process.env.REACT_APP_API_KEY
 
-export default function TinyMCE() {
+export default function TinyMCE({ onData }) {
   let navigate = useNavigate()
   let savedNote = localStorage.getItem('savedNote')
   console.log(JSON.parse(savedNote))
@@ -24,6 +24,7 @@ export default function TinyMCE() {
 
   useEffect(() => {
     localStorage.setItem('savedNote', JSON.stringify(notes))
+    onData(notes)
     console.log(notes)
     if (isInit) {
       console.log(123)

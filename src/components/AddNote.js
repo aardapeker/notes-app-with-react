@@ -1,8 +1,8 @@
 import TinyMCE from './Editor'
-const AddNote = () => {
+const AddNote = ({ onData }) => {
   return (
     <div className='editor-mce'>
-      <TinyMCE />
+      <TinyMCE onData={onData} />
     </div>
   )
 }
