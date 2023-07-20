@@ -27,7 +27,6 @@ export default function TinyMCE({ onData }) {
     onData(notes)
     console.log(notes)
     if (isInit) {
-      console.log(123)
       navigate('/')
     }
   }, [notes])

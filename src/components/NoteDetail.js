@@ -1,15 +1,22 @@
 import { useParams } from 'react-router-dom'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 function NoteDetail({ notes, onData }) {
+  let navigate = useNavigate()
   let { id } = useParams()
   const [newNotes, setNewNotes] = useState(notes)
   onData(newNotes)
   console.log(newNotes)
-  const handleDelete = () => {
+  const handleDelete = async () => {
     console.log(id)
-    setNewNotes(() => newNotes.filter((newNote, idx) => idx !== +id))
+    await setNewNotes(() => newNotes.filter((newNote, idx) => idx !== +id))
     console.log(newNotes)
+    navigate('/')
   }
+
+  useEffect(() => {
+    localStorage.setItem('savedNote', JSON.stringify(newNotes))
+  }, [newNotes])
 
   return (
     <div>

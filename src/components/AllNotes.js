@@ -4,11 +4,7 @@ import { nanoid } from 'nanoid'
 
 function AllNotes({ notes }) {
   let navigate = useNavigate()
-  // Usage in a component
-
-  console.log(notes)
   const handleClick = (i) => {
-    console.log(i)
     navigate(`/notes/${i}`)
   }
   return (

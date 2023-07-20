@@ -9,10 +9,6 @@ function App() {
   let savedNote = localStorage.getItem('savedNote')
   const [notes, setNotes] = useState(savedNote ? JSON.parse(savedNote) : [])
 
-  // useEffect(() => {
-  //   setNotes(JSON.parse(savedNote))
-  // }, [])
-
   const handleData = (data) => {
     setNotes(data)
     console.log(notes)
