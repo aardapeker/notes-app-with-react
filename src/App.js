@@ -15,6 +15,7 @@ function App() {
 
   const handleData = (data) => {
     setNotes(data)
+    console.log(notes)
   }
 
   return (
@@ -25,7 +26,10 @@ function App() {
           <Route path='add' element={<AddNote onData={handleData} />} />
           <Route path='notes'>
             <Route path='' element={<AllNotes notes={notes} />} />
-            <Route path=':id' element={<NoteDetail notes={notes} />} />
+            <Route
+              path=':id'
+              element={<NoteDetail notes={notes} onData={handleData} />}
+            />
           </Route>
         </Routes>
       </Router>
