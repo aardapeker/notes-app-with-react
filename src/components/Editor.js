@@ -5,16 +5,24 @@ import './Editor.css'
 
 const API_KEY = process.env.REACT_APP_API_KEY
 
-export default function TinyMCE({ onData }) {
+export default function TinyMCE({ onData, note, noteID }) {
   let navigate = useNavigate()
   let savedNote = localStorage.getItem('savedNote')
   console.log(JSON.parse(savedNote))
   const [notes, setNotes] = useState(savedNote ? JSON.parse(savedNote) : [])
   const [isInit, setIsInit] = useState(false)
   const editorRef = useRef(null)
-
+  if (note !== null) {
+    console.log(note)
+    console.log(noteID)
+    editorRef.current?.setContent(note)
+  }
   const log = () => {
     if (editorRef.current) {
+      if (note !== null) {
+        setNotes(notes.filter((eachNote, idx) => idx !== +noteID))
+        console.log(notes)
+      }
       let content = editorRef.current.getContent()
       setNotes((prev) => {
         return [content, ...prev]
@@ -26,20 +34,12 @@ export default function TinyMCE({ onData }) {
     localStorage.setItem('savedNote', JSON.stringify(notes))
     onData(notes)
     console.log(notes)
+
     if (isInit) {
       navigate('/')
     }
   }, [notes])
 
-  // useEffect(() => {
-  //   let savedNote = localStorage.getItem('savedNote')
-
-  //   if (savedNote) {
-  //     setNotes([savedNote])
-  //     console.log(notes)
-  //     editorRef.current?.setContent(savedNote)
-  //   }
-  // }, [isInit])
   return (
     <>
       <Editor

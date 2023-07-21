@@ -1,20 +1,28 @@
 import { useParams } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-function NoteDetail({ notes, onData }) {
+function NoteDetail({ notes, onData, onNote, onNoteID }) {
   let navigate = useNavigate()
   let { id } = useParams()
   const [newNotes, setNewNotes] = useState(notes)
-  onData(newNotes)
+
   console.log(newNotes)
   const handleDelete = async () => {
     console.log(id)
-    await setNewNotes(() => newNotes.filter((newNote, idx) => idx !== +id))
+    await setNewNotes(newNotes.filter((newNote, idx) => idx !== +id))
     console.log(newNotes)
     navigate('/')
   }
 
+  const handleEdit = () => {
+    console.log('edit')
+    onNote(notes[id])
+    onNoteID(id)
+    navigate('/add')
+  }
+
   useEffect(() => {
+    onData(newNotes)
     localStorage.setItem('savedNote', JSON.stringify(newNotes))
   }, [newNotes])
 
@@ -23,7 +31,7 @@ function NoteDetail({ notes, onData }) {
       <h1>Note Details Page </h1>
       <p dangerouslySetInnerHTML={{ __html: notes[id] }}></p>
       <button onClick={handleDelete}>Delete</button>
-      <button>Edit</button>
+      <button onClick={handleEdit}>Edit</button>
     </div>
   )
 }
