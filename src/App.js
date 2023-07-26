@@ -1,9 +1,14 @@
+// NoteDetail
+//  |
+// App --> AllNotes --> SingleNote
+//  |
+// AddNote --> Editor
+
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import './App.css'
 import AllNotes from './components/AllNotes'
 import NoteDetail from './components/NoteDetail'
 import AddNote from './components/AddNote'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 function App() {
   let savedNote = localStorage.getItem('savedNote')
@@ -13,16 +18,18 @@ function App() {
 
   const handleData = (data) => {
     setNotes(data)
-    console.log(notes)
   }
 
   const handleNote = (note) => {
-    console.log(note)
     setNote(note)
   }
 
   const handleNoteID = (noteID) => {
     setNoteID(noteID)
+  }
+
+  const handleClean = () => {
+    setNote(null)
   }
 
   return (
@@ -33,7 +40,12 @@ function App() {
           <Route
             path='add'
             element={
-              <AddNote onData={handleData} note={note} noteID={noteID} />
+              <AddNote
+                onData={handleData}
+                note={note}
+                noteID={noteID}
+                onCleaningNote={handleClean}
+              />
             }
           />
           <Route path='notes'>

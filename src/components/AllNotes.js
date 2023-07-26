@@ -4,9 +4,15 @@ import { nanoid } from 'nanoid'
 
 function AllNotes({ notes }) {
   let navigate = useNavigate()
+
   const handleClick = (i) => {
     navigate(`/notes/${i}`)
   }
+
+  const handleNavigate = () => {
+    navigate('add')
+  }
+
   return (
     <div>
       <h1>Notes List Page</h1>
@@ -18,6 +24,7 @@ function AllNotes({ notes }) {
             handleClick={() => handleClick(idx)}
           />
         ))}
+        <button onClick={handleNavigate}>Add Note</button>
       </div>
     </div>
   )
